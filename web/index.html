@@ -22,7 +22,14 @@
     <div class="app-container">
         <aside class="sidebar">
             <div class="sidebar-section">
-                <div class="sidebar-title"><i class="fas fa-layer-group"></i> Document Hub</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
+                    <div class="sidebar-title" style="margin-bottom:0"><i class="fas fa-layer-group"></i> <span>Document
+                            Hub</span></div>
+                    <button id="sidebar-toggle"
+                        style="background:none;border:none;color:var(--text-secondary);cursor:pointer;transition:color 0.2s">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                </div>
                 <div class="upload-section glass-card" id="drop-zone">
                     <input type="file" id="file-upload" multiple hidden>
                     <label for="file-upload" class="upload-label">

@@ -106,6 +106,50 @@ body {
     opacity: 0.8;
 }
 
+.sidebar.collapsed {
+    width: 60px;
+    padding: 1.5rem 0.5rem;
+}
+
+.sidebar.collapsed .sidebar-title span,
+.sidebar.collapsed .upload-label div,
+.sidebar.collapsed .doc-title,
+.sidebar.collapsed .doc-meta,
+.sidebar.collapsed .ai-badge,
+.sidebar.collapsed .delete-btn,
+.sidebar.collapsed .doc-header button {
+    display: none !important;
+}
+
+.sidebar.collapsed .sidebar-title {
+    justify-content: center;
+    margin-bottom: 0;
+}
+
+.sidebar.collapsed .sidebar-title i {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.sidebar.collapsed #sidebar-toggle i {
+    transform: rotate(180deg);
+}
+
+.sidebar.collapsed .upload-section {
+    padding: 1rem 0.5rem;
+    border-style: solid;
+}
+
+.sidebar.collapsed .doc-card {
+    padding: 0.8rem;
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar.collapsed .checkbox-wrapper {
+    margin: 0;
+}
+
 .upload-section {
     position: relative;
     padding: 2.5rem 1.5rem;
@@ -148,6 +192,7 @@ body {
     font-weight: 700;
     background: var(--primary-gradient);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -217,25 +262,27 @@ body {
 }
 
 .hero-section {
-    padding: 3rem;
+    padding: 1.5rem 2rem;
     text-align: center;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, transparent 100%);
+    border-bottom: 1px solid var(--glass-border);
 }
 
 .hero-title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
     background: linear-gradient(135deg, #fff 0%, #cbd5e1 100%);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
 }
 
 .hero-subtitle {
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color: var(--text-secondary);
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
 }
 
 .badges {
