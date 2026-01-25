@@ -14,8 +14,10 @@ venv/
 storage/
 document_store/
 enterprise_storage/
+*_storage/
 *.db
 *.sqlite3
+chroma.sqlite3
 
 # IDE
 .vscode/
