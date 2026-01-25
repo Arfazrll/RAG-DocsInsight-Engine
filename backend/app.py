@@ -1,4 +1,3 @@
-
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
@@ -7,24 +6,20 @@ from rag_core import DocumentProcessor, VectorStoreManager, RAGQueryEngine
 app = Flask(__name__)
 CORS(app) 
 
-# Configuration
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STORAGE_PATH = os.path.join(BASE_DIR, '..', 'storage')
 processor = DocumentProcessor(storage_path=STORAGE_PATH)
 vector_manager = VectorStoreManager(db_path=processor.db_path)
 query_engine = RAGQueryEngine()
 
-# Paths for frontend
 WEB_FOLDER = os.path.join(BASE_DIR, '..', 'web')
 
 @app.route('/')
 def index():
-    # Serve the main HTML file
     return send_from_directory(WEB_FOLDER, 'index.html')
 
 @app.route('/<path:path>')
 def serve_static(path):
-    # Serve other static files (css, js)
     return send_from_directory(WEB_FOLDER, path)
 
 @app.route('/api/upload', methods=['POST'])
@@ -40,10 +35,8 @@ def upload_file():
             continue
             
         try:
-            # Save file
             metadata = processor.save_file(file)
             
-            # Process and Index
             documents = processor.load_document(metadata['file_path'], metadata['file_type'])
             chunks = processor.process_documents(documents, metadata)
             vector_manager.add_documents(chunks)
@@ -79,14 +72,13 @@ def delete_document(file_hash):
 def query():
     data = request.json
     query_text = data.get('query')
-    selected_files = data.get('selected_files', []) # List of file_hashes
+    selected_files = data.get('selected_files', [])
     
     if not query_text:
         return jsonify({'error': 'No query provided'}), 400
         
     filter_dict = None
     if selected_files:
-        # ChromaDB syntax for "in" filter
         filter_dict = {"file_hash": {"$in": selected_files}}
     
     relevant_docs = vector_manager.search(
@@ -100,8 +92,7 @@ def query():
     return jsonify(response)
 
 if __name__ == '__main__':
-    # Ensure web folder exists to avoid errors on startup if not yet created
     if not os.path.exists(WEB_FOLDER):
         os.makedirs(WEB_FOLDER, exist_ok=True)
         
-    app.run(debug=True, use_reloader=False, port=5000)
+    app.run(debug=False, port=5000)
