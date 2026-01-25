@@ -5,4 +5,7 @@ services:
       - "5000:5000"
     volumes:
       - ./storage:/app/storage
+    environment:
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+      - PYTHONUNBUFFERED=1
     restart: unless-stopped

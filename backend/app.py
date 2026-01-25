@@ -95,4 +95,4 @@ if __name__ == '__main__':
     if not os.path.exists(WEB_FOLDER):
         os.makedirs(WEB_FOLDER, exist_ok=True)
         
-    app.run(debug=False, port=5000)
+    app.run(host='0.0.0.0', debug=False, port=5000)

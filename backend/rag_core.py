@@ -140,7 +140,8 @@ class VectorStoreManager:
     
     def __init__(self, db_path: str, embedding_model: str = "llama3:8b"):
         self.db_path = db_path
-        self.embedding_function = OllamaEmbeddings(model=embedding_model)
+        base_url = os.getenv('OLLAMA_BASE_URL', 'http://localhost:11434')
+        self.embedding_function = OllamaEmbeddings(model=embedding_model, base_url=base_url)
         self.vector_store = None
         self.initialize_store()
     
@@ -192,7 +193,8 @@ class VectorStoreManager:
 class RAGQueryEngine:
     
     def __init__(self, model_name: str = "llama3:8b"):
-        self.llm = OllamaLLM(model=model_name, temperature=0.7)
+        base_url = os.getenv('OLLAMA_BASE_URL', 'http://localhost:11434')
+        self.llm = OllamaLLM(model=model_name, temperature=0.7, base_url=base_url)
         self.prompt_template = ChatPromptTemplate.from_template("""
 You are an enterprise-grade AI assistant specialized in document analysis and information retrieval.
 
@@ -209,6 +211,7 @@ Instructions:
 5. Highlight key insights and actionable information
 
 Answer:""")
+    
     
     def generate_response(self, query: str, context_documents: List[Document]) -> Dict:
         if not context_documents:
@@ -230,7 +233,6 @@ Answer:""")
         })
         
         sources = list(set([doc.metadata.get('source_file', 'Unknown') for doc in context_documents]))
-        
         confidence = min(len(context_documents) / 5.0, 1.0)
         
         return {
