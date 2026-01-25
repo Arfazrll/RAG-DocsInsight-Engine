@@ -59,7 +59,6 @@ body {
     z-index: 1;
 }
 
-/* Glassmorphism Utilities */
 .glass {
     background: var(--glass-panel);
     backdrop-filter: blur(12px);
@@ -81,7 +80,6 @@ body {
     border-color: var(--glass-highlight);
 }
 
-/* Sidebar */
 .sidebar {
     width: 350px;
     height: 100%;
@@ -210,7 +208,6 @@ body {
     align-items: center;
 }
 
-/* Main Content */
 .main-content {
     flex: 1;
     display: flex;
@@ -259,7 +256,6 @@ body {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Chat Area */
 .chat-container {
     flex: 1;
     padding: 2rem 15%;
@@ -364,7 +360,6 @@ body {
     border: 1px solid transparent;
 }
 
-/* Input Area */
 .input-area {
     padding: 2rem 15%;
     background: linear-gradient(0deg, var(--bg-dark) 0%, transparent 100%);
@@ -434,7 +429,6 @@ textarea::placeholder {
     transform: none;
 }
 
-/* Scrollbars */
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -452,7 +446,6 @@ textarea::placeholder {
     background: rgba(255, 255, 255, 0.2);
 }
 
-/* Animations */
 @keyframes fadeIn {
     from {
         opacity: 0;

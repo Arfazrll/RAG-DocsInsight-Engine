@@ -1,0 +1,8 @@
+services:
+  rag-engine:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./storage:/app/storage
+    restart: unless-stopped

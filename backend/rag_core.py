@@ -43,13 +43,10 @@ class DocumentProcessor:
         return hashlib.sha256(file_bytes).hexdigest()
     
     def save_file(self, file_storage) -> Dict:
-        # file_storage is expected to be a Flask FileStorage object or similar
         file_bytes = file_storage.read()
-        # Reset pointer for subsequent reads if necessary, though here we write it out immediately
         file_storage.seek(0) 
         
         file_hash = self.generate_file_hash(file_bytes)
-        # Use secure_filename in app.py or here? simpler to rely on just extension here
         original_filename = file_storage.filename
         file_ext = original_filename.split('.')[-1].lower()
         
@@ -154,7 +151,6 @@ class VectorStoreManager:
                 embedding_function=self.embedding_function
             )
         except Exception:
-            # Retry or handle error 
             self.vector_store = Chroma(
                 persist_directory=self.db_path,
                 embedding_function=self.embedding_function
@@ -177,7 +173,6 @@ class VectorStoreManager:
         if not self.vector_store:
             return []
         
-        # Ensure collection exists/is loaded
         if self.vector_store._collection.count() == 0:
             return []
 
@@ -189,7 +184,6 @@ class VectorStoreManager:
     def delete_by_source(self, file_hash: str):
         if self.vector_store:
             try:
-                # Note: Chroma delete syntax might vary by version, but where clause is standard
                 self.vector_store.delete(where={"file_hash": file_hash})
             except Exception as e:
                 print(f"Error deleting from vector store: {e}")

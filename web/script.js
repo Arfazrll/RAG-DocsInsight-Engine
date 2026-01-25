@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let selectedFiles = new Set();
 
-    // Configure Marked.js
     marked.setOptions({
         highlight: function (code, lang) {
             const language = hljs.getLanguage(lang) ? lang : 'plaintext';
@@ -19,17 +18,14 @@ document.addEventListener('DOMContentLoaded', () => {
         langPrefix: 'hljs language-'
     });
 
-    // Auto-resize textarea
     queryInput.addEventListener('input', function () {
         this.style.height = 'auto';
         this.style.height = (this.scrollHeight) + 'px';
         if (this.value === '') this.style.height = 'auto';
     });
 
-    // Initial Load
     loadDocuments();
 
-    // File Upload Handling
     fileUpload.addEventListener('change', async (e) => {
         const files = e.target.files;
         if (files.length === 0) return;
@@ -61,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Load Documents
     async function loadDocuments() {
         try {
             const response = await fetch('/api/documents');
@@ -114,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Delete Document
     window.deleteDocument = async (fileHash) => {
         if (!confirm('Permanently delete this document?')) return;
 
@@ -129,21 +123,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Chat Functionality
     async function sendMessage() {
         const query = queryInput.value.trim();
         if (!query) return;
 
-        // Disable Input
         queryInput.disabled = true;
         sendBtn.disabled = true;
 
-        // Add User Message
         appendMessage('user', query);
         queryInput.value = '';
         queryInput.style.height = 'auto'; // Reset height
 
-        // Show Loading
         const loadingId = appendLoading();
 
         try {
@@ -160,10 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await response.json();
 
-            // Remove Loading
             document.getElementById(loadingId).remove();
 
-            // Add Assistant Message
             appendMessage('assistant', data.answer, data);
 
         } catch (error) {
@@ -195,7 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
         }
 
-        // Parse Markdown if assistant
         const formattedContent = role === 'assistant' ? marked.parse(content) : content;
 
         div.innerHTML = `
@@ -214,7 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const emptyState = document.querySelector('.empty-state');
         if (emptyState) emptyState.style.display = 'none';
 
-        // Re-highlight code blocks
         if (role === 'assistant') {
             div.querySelectorAll('pre code').forEach((block) => {
                 hljs.highlightElement(block);
