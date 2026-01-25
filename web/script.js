@@ -7,6 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatContainer = document.getElementById('chat-container');
     const queryInput = document.getElementById('query-input');
     const sendBtn = document.getElementById('send-btn');
+    const sidebar = document.querySelector('.sidebar');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+
+    sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+    });
 
     let selectedFiles = new Set();
 
