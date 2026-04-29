@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DocsInsight Engine — Next-generation AI-powered document intelligence with neural search and real-time RAG.">
+    <meta name="description" content="DocsInsight Engine — AI-powered document intelligence with neural search and real-time RAG.">
     <title>DocsInsight Engine</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 </head>
 
@@ -18,12 +18,11 @@
     <div class="app-container">
         <aside class="sidebar">
             <div class="sidebar-section">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
                     <div class="sidebar-title" style="margin-bottom:0">
-                        <i class="fas fa-layer-group"></i>
-                        <span>Document Hub</span>
+                        <span>Documents</span>
                     </div>
-                    <button id="sidebar-toggle" style="background:none;border:none;color:var(--text-muted);cursor:pointer;transition:all 0.3s;padding:4px 6px;border-radius:6px" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">
+                    <button id="sidebar-toggle" style="background:none;border:none;color:var(--gray-500);cursor:pointer;transition:color 0.15s;padding:4px;border-radius:4px;font-size:11px" onmouseover="this.style.color='var(--gray-200)'" onmouseout="this.style.color='var(--gray-500)'">
                         <i class="fas fa-chevron-left"></i>
                     </button>
                 </div>
@@ -31,21 +30,20 @@
                 <div class="upload-section" id="drop-zone">
                     <input type="file" id="file-upload" multiple hidden>
                     <label for="file-upload" class="upload-label">
-                        <i class="fas fa-cloud-arrow-up"></i>
+                        <i class="fas fa-arrow-up-from-bracket"></i>
                         <div>
-                            <div style="font-weight:600;color:var(--text-primary);font-size:0.85rem">Drop files or click</div>
-                            <div style="font-size:0.68rem;margin-top:3px;color:var(--text-muted)">PDF, DOCX, TXT, XLSX, CSV</div>
+                            <div style="font-weight:500;color:var(--gray-200);font-size:13px">Upload files</div>
+                            <div style="font-size:11px;margin-top:2px;color:var(--gray-500)">PDF, DOCX, TXT, XLSX, CSV</div>
                         </div>
                     </label>
-                    <div id="upload-status" style="margin-top:8px;font-size:0.75rem;color:var(--accent-secondary)"></div>
+                    <div id="upload-status" style="margin-top:8px;font-size:12px;color:var(--gray-300)"></div>
                 </div>
             </div>
 
             <div class="sidebar-section" style="flex:1;display:flex;flex-direction:column;min-height:0">
                 <div class="sidebar-title">
-                    <i class="fas fa-folder-open"></i>
-                    <span>Your Library</span>
-                    <span id="doc-count" class="ai-badge" style="margin-left:auto;font-size:0.58rem;padding:2px 8px">0</span>
+                    <span>Library</span>
+                    <span id="doc-count" class="ai-badge" style="margin-left:auto;font-size:10px;padding:2px 7px">0</span>
                 </div>
                 <div id="document-list" class="document-list"></div>
             </div>
@@ -53,10 +51,7 @@
             <div class="sidebar-section">
                 <div class="status-card">
                     <div class="status-dot"></div>
-                    <div style="font-size:0.75rem">
-                        <div style="color:var(--text-muted);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.05em">System</div>
-                        <div style="font-weight:600;color:var(--accent-secondary);font-size:0.78rem">Operational</div>
-                    </div>
+                    <div style="font-size:11px;color:var(--gray-500)">System operational</div>
                 </div>
             </div>
         </aside>
@@ -64,42 +59,35 @@
         <main class="main-content">
             <header class="hero-section">
                 <h1 class="hero-title">DocsInsight Engine</h1>
-                <p class="hero-subtitle">Next-Generation Document Intelligence</p>
                 <div class="badges">
-                    <span class="ai-badge"><i class="fas fa-brain"></i> Neural Search</span>
-                    <span class="ai-badge"><i class="fas fa-bolt"></i> Real-time RAG</span>
-                    <span class="ai-badge"><i class="fas fa-shield-halved"></i> Local LLM</span>
+                    <span class="ai-badge">Neural Search</span>
+                    <span class="ai-badge">RAG</span>
+                    <span class="ai-badge">Local LLM</span>
                 </div>
             </header>
 
             <div class="chat-container" id="chat-container">
                 <div class="empty-state">
                     <div class="empty-state-icon">
-                        <i class="fas fa-wand-magic-sparkles"></i>
+                        <i class="fas fa-magnifying-glass"></i>
                     </div>
-                    <h3>Start Exploring Your Documents</h3>
-                    <p style="color:var(--text-muted);margin-top:0.4rem;font-size:0.88rem">Upload a document and ask questions to uncover insights.</p>
+                    <h3>Ask anything about your documents</h3>
+                    <p style="color:var(--gray-500);margin-top:6px;font-size:13px">Upload a document and start querying to extract insights.</p>
                     <div class="suggestion-chips">
-                        <div class="suggestion-chip" data-query="Summarize the key points of the uploaded document">
-                            <i class="fas fa-list"></i> Summarize key points
-                        </div>
-                        <div class="suggestion-chip" data-query="What are the main topics discussed?">
-                            <i class="fas fa-lightbulb"></i> Main topics
-                        </div>
-                        <div class="suggestion-chip" data-query="Extract important data and statistics">
-                            <i class="fas fa-chart-bar"></i> Extract data
-                        </div>
+                        <div class="suggestion-chip" data-query="Summarize the key points of the uploaded document">Summarize key points</div>
+                        <div class="suggestion-chip" data-query="What are the main topics discussed?">Main topics</div>
+                        <div class="suggestion-chip" data-query="Extract important data and statistics">Extract data</div>
                     </div>
                 </div>
             </div>
 
             <div class="input-area">
                 <div class="input-wrapper">
-                    <textarea id="query-input" placeholder="Ask a question about your documents..." rows="1"></textarea>
+                    <textarea id="query-input" placeholder="Ask a question..." rows="1"></textarea>
                     <button id="send-btn"><i class="fas fa-arrow-up"></i></button>
                 </div>
                 <div class="input-footer">
-                    AI can make mistakes. Always verify important information.
+                    AI responses may be inaccurate. Verify important information.
                 </div>
             </div>
         </main>
