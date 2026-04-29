@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sendBtn = document.getElementById('send-btn');
     const sidebar = document.querySelector('.sidebar');
     const sidebarToggle = document.getElementById('sidebar-toggle');
+    const dropZone = document.getElementById('drop-zone');
 
     sidebarToggle.addEventListener('click', () => {
         sidebar.classList.toggle('collapsed');
@@ -30,13 +31,48 @@ document.addEventListener('DOMContentLoaded', () => {
         if (this.value === '') this.style.height = 'auto';
     });
 
+    // Drag & drop
+    ['dragenter', 'dragover'].forEach(evt => {
+        dropZone.addEventListener(evt, (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+        });
+    });
+
+    ['dragleave', 'drop'].forEach(evt => {
+        dropZone.addEventListener(evt, (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+        });
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            fileUpload.files = files;
+            fileUpload.dispatchEvent(new Event('change'));
+        }
+    });
+
+    // Suggestion chips
+    document.querySelectorAll('.suggestion-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            const query = chip.dataset.query;
+            if (query) {
+                queryInput.value = query;
+                queryInput.dispatchEvent(new Event('input'));
+                sendMessage();
+            }
+        });
+    });
+
     loadDocuments();
 
     fileUpload.addEventListener('change', async (e) => {
         const files = e.target.files;
         if (files.length === 0) return;
 
-        uploadStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+        uploadStatus.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Uploading...';
 
         const formData = new FormData();
         for (let i = 0; i < files.length; i++) {
@@ -51,14 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const result = await response.json();
             loadDocuments();
-            uploadStatus.style.color = '#10b981';
-            uploadStatus.innerHTML = `<i class="fas fa-check"></i> Uploaded ${result.results.length} files`;
+            uploadStatus.style.color = 'var(--accent-secondary)';
+            uploadStatus.innerHTML = `<i class="fas fa-check-circle"></i> ${result.results.length} file(s) uploaded`;
             setTimeout(() => {
                 uploadStatus.innerHTML = '';
             }, 3000);
         } catch (error) {
             console.error('Error:', error);
-            uploadStatus.style.color = '#ef4444';
+            uploadStatus.style.color = '#f87171';
             uploadStatus.textContent = 'Upload failed';
         }
     });
@@ -71,28 +107,29 @@ document.addEventListener('DOMContentLoaded', () => {
             docCount.textContent = documents.length;
             documentList.innerHTML = '';
 
-            documents.forEach(doc => {
+            documents.forEach((doc, index) => {
                 const card = document.createElement('div');
-                card.className = 'doc-card glass-card';
+                card.className = 'doc-card';
+                card.style.animationDelay = `${index * 0.05}s`;
 
                 const isSelected = selectedFiles.has(doc.file_hash);
+                const ft = doc.file_type.toLowerCase();
 
                 card.innerHTML = `
                     <div class="doc-header">
-                        <div style="display:flex;align-items:center;flex:1;overflow:hidden">
+                        <div style="display:flex;align-items:center;flex:1;overflow:hidden;gap:8px">
                             <input type="checkbox" class="selection-checkbox" 
-                                data-hash="${doc.file_hash}" ${isSelected ? 'checked' : ''} style="margin-right:10px;accent-color:var(--accent-primary)">
+                                data-hash="${doc.file_hash}" ${isSelected ? 'checked' : ''} style="accent-color:var(--accent-primary);cursor:pointer;flex-shrink:0">
                             <div class="doc-title" title="${doc.filename}" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
-                                <i class="far fa-file-alt" style="margin-right:6px;color:var(--accent-secondary)"></i>
                                 ${doc.filename}
                             </div>
                         </div>
                         <button class="delete-btn" onclick="deleteDocument('${doc.file_hash}')" title="Delete">
-                            <i class="fas fa-times"></i>
+                            <i class="fas fa-trash-can" style="font-size:0.7rem"></i>
                         </button>
                     </div>
                     <div class="doc-meta">
-                        <span style="text-transform:uppercase;font-size:0.6rem;letter-spacing:1px;font-weight:700">${doc.file_type}</span>
+                        <span class="file-type-badge ${ft}">${ft}</span>
                         <span>${(doc.file_size / 1024).toFixed(1)} KB</span>
                     </div>
                 `;
@@ -138,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         appendMessage('user', query);
         queryInput.value = '';
-        queryInput.style.height = 'auto'; // Reset height
+        queryInput.style.height = 'auto';
 
         const loadingId = appendLoading();
 
@@ -195,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="role-badge">
                 <i class="fas ${role === 'user' ? 'fa-user' : 'fa-robot'}"></i>
                 ${role === 'user' ? 'YOU' : 'AI ASSISTANT'}
-                <span style="margin-left:auto;font-weight:400;opacity:0.7">${timestamp}</span>
+                <span style="margin-left:auto;font-weight:400;opacity:0.5;font-size:0.6rem">${timestamp}</span>
             </div>
             <div class="message-content">${formattedContent}</div>
             ${sourcesHtml}
@@ -223,9 +260,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="role-badge">
                 <i class="fas fa-robot"></i> AI ASSISTANT
             </div>
-            <div class="message-content">
-                <i class="fas fa-circle-notch fa-spin" style="color:var(--accent-primary)"></i> 
-                <span class="typing-text">Analyzing documents...</span>
+            <div class="message-content" style="display:flex;align-items:center;gap:10px">
+                <div class="loading-dots">
+                    <span></span><span></span><span></span>
+                </div>
+                <span style="color:var(--text-muted);font-size:0.85rem">Analyzing documents...</span>
             </div>
         `;
         chatContainer.appendChild(div);

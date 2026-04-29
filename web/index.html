@@ -4,17 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise RAG System</title>
+    <meta name="description" content="DocsInsight Engine — Next-generation AI-powered document intelligence with neural search and real-time RAG.">
+    <title>DocsInsight Engine</title>
     <link rel="stylesheet" href="style.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400&display=swap"
-        rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 </head>
 
@@ -22,44 +18,44 @@
     <div class="app-container">
         <aside class="sidebar">
             <div class="sidebar-section">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem">
-                    <div class="sidebar-title" style="margin-bottom:0"><i class="fas fa-layer-group"></i> <span>Document
-                            Hub</span></div>
-                    <button id="sidebar-toggle"
-                        style="background:none;border:none;color:var(--text-secondary);cursor:pointer;transition:color 0.2s">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem">
+                    <div class="sidebar-title" style="margin-bottom:0">
+                        <i class="fas fa-layer-group"></i>
+                        <span>Document Hub</span>
+                    </div>
+                    <button id="sidebar-toggle" style="background:none;border:none;color:var(--text-muted);cursor:pointer;transition:all 0.3s;padding:4px 6px;border-radius:6px" onmouseover="this.style.color='var(--text-primary)'" onmouseout="this.style.color='var(--text-muted)'">
                         <i class="fas fa-chevron-left"></i>
                     </button>
                 </div>
-                <div class="upload-section glass-card" id="drop-zone">
+
+                <div class="upload-section" id="drop-zone">
                     <input type="file" id="file-upload" multiple hidden>
                     <label for="file-upload" class="upload-label">
                         <i class="fas fa-cloud-arrow-up"></i>
                         <div>
-                            <div style="font-weight:600;color:var(--text-primary)">Click to Upload</div>
-                            <div style="font-size:0.7rem;margin-top:4px">PDF, DOCX, TXT supported</div>
+                            <div style="font-weight:600;color:var(--text-primary);font-size:0.85rem">Drop files or click</div>
+                            <div style="font-size:0.68rem;margin-top:3px;color:var(--text-muted)">PDF, DOCX, TXT, XLSX, CSV</div>
                         </div>
                     </label>
-                    <div id="upload-status" style="margin-top:10px;font-size:0.8rem;color:var(--accent-primary)"></div>
+                    <div id="upload-status" style="margin-top:8px;font-size:0.75rem;color:var(--accent-secondary)"></div>
                 </div>
             </div>
 
-            <div class="sidebar-section" style="flex:1;display:flex;flex-direction:column">
+            <div class="sidebar-section" style="flex:1;display:flex;flex-direction:column;min-height:0">
                 <div class="sidebar-title">
-                    <i class="fas fa-file-lines"></i> Your Library
-                    <span id="doc-count" class="ai-badge" style="margin-left:auto;font-size:0.6rem">0</span>
+                    <i class="fas fa-folder-open"></i>
+                    <span>Your Library</span>
+                    <span id="doc-count" class="ai-badge" style="margin-left:auto;font-size:0.58rem;padding:2px 8px">0</span>
                 </div>
-
-                <div id="document-list" class="document-list">
-                </div>
+                <div id="document-list" class="document-list"></div>
             </div>
 
             <div class="sidebar-section">
-                <div class="glass-card" style="padding:1rem;display:flex;gap:1rem;align-items:center">
-                    <div style="background:#10b981;width:8px;height:8px;border-radius:50%;box-shadow:0 0 10px #10b981">
-                    </div>
-                    <div style="font-size:0.8rem">
-                        <div style="color:var(--text-secondary)">System Status</div>
-                        <div style="font-weight:600;color:var(--text-primary)">Operational</div>
+                <div class="status-card">
+                    <div class="status-dot"></div>
+                    <div style="font-size:0.75rem">
+                        <div style="color:var(--text-muted);font-size:0.65rem;text-transform:uppercase;letter-spacing:0.05em">System</div>
+                        <div style="font-weight:600;color:var(--accent-secondary);font-size:0.78rem">Operational</div>
                     </div>
                 </div>
             </div>
@@ -72,28 +68,38 @@
                 <div class="badges">
                     <span class="ai-badge"><i class="fas fa-brain"></i> Neural Search</span>
                     <span class="ai-badge"><i class="fas fa-bolt"></i> Real-time RAG</span>
+                    <span class="ai-badge"><i class="fas fa-shield-halved"></i> Local LLM</span>
                 </div>
             </header>
 
             <div class="chat-container" id="chat-container">
                 <div class="empty-state">
-                    <div
-                        style="width:80px;height:80px;background:rgba(255,255,255,0.05);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem auto;border:1px solid var(--glass-border)">
-                        <i class="fas fa-wand-magic-sparkles fa-2x" style="color:var(--text-muted)"></i>
+                    <div class="empty-state-icon">
+                        <i class="fas fa-wand-magic-sparkles"></i>
                     </div>
-                    <h3>Start Exploring</h3>
-                    <p style="color:var(--text-muted);margin-top:0.5rem">Upload a document and ask questions to uncover
-                        insights.</p>
+                    <h3>Start Exploring Your Documents</h3>
+                    <p style="color:var(--text-muted);margin-top:0.4rem;font-size:0.88rem">Upload a document and ask questions to uncover insights.</p>
+                    <div class="suggestion-chips">
+                        <div class="suggestion-chip" data-query="Summarize the key points of the uploaded document">
+                            <i class="fas fa-list"></i> Summarize key points
+                        </div>
+                        <div class="suggestion-chip" data-query="What are the main topics discussed?">
+                            <i class="fas fa-lightbulb"></i> Main topics
+                        </div>
+                        <div class="suggestion-chip" data-query="Extract important data and statistics">
+                            <i class="fas fa-chart-bar"></i> Extract data
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="input-area">
                 <div class="input-wrapper">
                     <textarea id="query-input" placeholder="Ask a question about your documents..." rows="1"></textarea>
-                    <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                    <button id="send-btn"><i class="fas fa-arrow-up"></i></button>
                 </div>
-                <div style="text-align:center;font-size:0.7rem;color:var(--text-muted);margin-top:1rem">
-                    AI can make mistakes. Please verify important information.
+                <div class="input-footer">
+                    AI can make mistakes. Always verify important information.
                 </div>
             </div>
         </main>
