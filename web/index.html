@@ -1,98 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="DocsInsight Engine — AI-powered document intelligence with neural search and real-time RAG.">
+    <meta name="description" content="DocsInsight Engine — Enterprise-grade AI document intelligence platform.">
     <title>DocsInsight Engine</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600;700&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600;700;800;900&family=Fira+Code:wght@400&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark-dimmed.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 </head>
-
 <body>
+
+<!-- ════════ LANDING PAGE ════════ -->
+<div id="landing-page">
+
+    <!-- Nav -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">DocsInsight</a>
+            <div class="nav-links" id="nav-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How it works</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <button class="btn-launch" id="btn-launch-nav">Launch App</button>
+            <button class="nav-mobile-toggle" id="nav-mobile-toggle"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-content reveal">
+            <div class="hero-eyebrow">AI-Powered Document Intelligence</div>
+            <h1 class="hero-h1">Understand your<br>documents instantly</h1>
+            <p class="hero-desc">Upload any document. Ask any question. Get precise answers powered by local LLM and neural search. No data leaves your machine.</p>
+            <div class="hero-actions">
+                <button class="btn-primary" id="btn-launch-hero">Get Started</button>
+                <a href="#features" class="btn-secondary">Learn more <i class="fas fa-arrow-down" style="font-size:11px;margin-left:4px"></i></a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat"><span>6+</span> File formats</div>
+                <div class="hero-stat-sep"></div>
+                <div class="hero-stat"><span>100%</span> Private</div>
+                <div class="hero-stat-sep"></div>
+                <div class="hero-stat"><span>Local</span> LLM</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="section" id="features">
+        <div class="section-inner">
+            <div class="section-label reveal">Capabilities</div>
+            <h2 class="section-title reveal">Built for serious<br>document workflows</h2>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i class="fas fa-magnifying-glass-chart"></i></div>
+                    <h3>Neural Search</h3>
+                    <p>Semantic vector search finds contextually relevant information, not just keyword matches.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+                    <h3>Fully Private</h3>
+                    <p>Everything runs locally on your machine. No API calls to external services. Your data stays yours.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i class="fas fa-file-lines"></i></div>
+                    <h3>Multi-Format</h3>
+                    <p>Supports PDF, DOCX, TXT, XLSX, XLS, and CSV files out of the box with intelligent parsing.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Real-time RAG</h3>
+                    <p>Retrieval-Augmented Generation ensures answers are always grounded in your actual documents.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i class="fas fa-layer-group"></i></div>
+                    <h3>Smart Chunking</h3>
+                    <p>Documents are intelligently split and indexed for optimal retrieval and comprehensive answers.</p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon"><i class="fas fa-code-branch"></i></div>
+                    <h3>Open Architecture</h3>
+                    <p>Built on LangChain, ChromaDB, and Ollama. Fully extensible and customizable to your needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="section section-alt" id="how-it-works">
+        <div class="section-inner">
+            <div class="section-label reveal">Process</div>
+            <h2 class="section-title reveal">Three steps to insight</h2>
+            <div class="steps">
+                <div class="step reveal">
+                    <div class="step-num">01</div>
+                    <h3>Upload</h3>
+                    <p>Drag and drop your documents. We support PDF, DOCX, TXT, Excel, and CSV formats.</p>
+                </div>
+                <div class="step-line"></div>
+                <div class="step reveal">
+                    <div class="step-num">02</div>
+                    <h3>Index</h3>
+                    <p>Documents are automatically chunked, embedded, and stored in a local vector database.</p>
+                </div>
+                <div class="step-line"></div>
+                <div class="step reveal">
+                    <div class="step-num">03</div>
+                    <h3>Query</h3>
+                    <p>Ask questions in natural language. The AI retrieves relevant context and generates precise answers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+        <div class="section-inner section-narrow">
+            <div class="section-label reveal">FAQ</div>
+            <h2 class="section-title reveal">Common questions</h2>
+            <div class="faq-list">
+                <div class="faq-item reveal">
+                    <button class="faq-q">What LLM does this use?<i class="fas fa-plus"></i></button>
+                    <div class="faq-a"><p>DocsInsight Engine uses Ollama with the Llama 3 8B model by default. You can configure it to use any Ollama-compatible model.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-q">Is my data sent to any external server?<i class="fas fa-plus"></i></button>
+                    <div class="faq-a"><p>No. Everything runs locally on your machine. The LLM, vector database, and all document processing happen on-device. Zero data leaves your environment.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-q">What are the system requirements?<i class="fas fa-plus"></i></button>
+                    <div class="faq-a"><p>You need Python 3.11+, Ollama installed and running, and at least 8GB of RAM (16GB recommended). A GPU is optional but improves response speed significantly.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-q">Can I use a different embedding or LLM model?<i class="fas fa-plus"></i></button>
+                    <div class="faq-a"><p>Yes. You can change the model in the backend configuration. Any model supported by Ollama can be used for both embeddings and text generation.</p></div>
+                </div>
+                <div class="faq-item reveal">
+                    <button class="faq-q">What file formats are supported?<i class="fas fa-plus"></i></button>
+                    <div class="faq-a"><p>PDF, DOCX, DOC, XLSX, XLS, CSV, and TXT files are supported natively with intelligent content extraction.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">DocsInsight Engine</div>
+            <div class="footer-links">
+                <a href="https://github.com/Arfazrll/RAG-DocsInsight-Engine" target="_blank">GitHub</a>
+                <a href="#features">Features</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            <div class="footer-copy">Built with LangChain, ChromaDB, and Ollama</div>
+        </div>
+    </footer>
+</div>
+
+<!-- ════════ APP VIEW ════════ -->
+<div id="app-view" class="app-view hidden">
     <div class="app-container">
         <aside class="sidebar">
             <div class="sidebar-section">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-                    <div class="sidebar-title" style="margin-bottom:0">
-                        <span>Documents</span>
-                    </div>
-                    <button id="sidebar-toggle" style="background:none;border:none;color:var(--gray-500);cursor:pointer;transition:color 0.15s;padding:4px;border-radius:4px;font-size:11px" onmouseover="this.style.color='var(--gray-200)'" onmouseout="this.style.color='var(--gray-500)'">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
+                <div class="sidebar-head">
+                    <button class="btn-back" id="btn-back" title="Back to home"><i class="fas fa-arrow-left"></i></button>
+                    <span class="sidebar-brand">DocsInsight</span>
+                    <button id="sidebar-toggle" class="btn-icon" title="Toggle sidebar"><i class="fas fa-sidebar fa-chevron-left"></i></button>
                 </div>
-
                 <div class="upload-section" id="drop-zone">
                     <input type="file" id="file-upload" multiple hidden>
                     <label for="file-upload" class="upload-label">
                         <i class="fas fa-arrow-up-from-bracket"></i>
                         <div>
-                            <div style="font-weight:500;color:var(--gray-200);font-size:13px">Upload files</div>
-                            <div style="font-size:11px;margin-top:2px;color:var(--gray-500)">PDF, DOCX, TXT, XLSX, CSV</div>
+                            <div class="upload-title">Upload files</div>
+                            <div class="upload-hint">PDF, DOCX, TXT, XLSX, CSV</div>
                         </div>
                     </label>
-                    <div id="upload-status" style="margin-top:8px;font-size:12px;color:var(--gray-300)"></div>
+                    <div id="upload-status"></div>
                 </div>
             </div>
-
-            <div class="sidebar-section" style="flex:1;display:flex;flex-direction:column;min-height:0">
-                <div class="sidebar-title">
-                    <span>Library</span>
-                    <span id="doc-count" class="ai-badge" style="margin-left:auto;font-size:10px;padding:2px 7px">0</span>
-                </div>
+            <div class="sidebar-section sidebar-grow">
+                <div class="sidebar-label">Library <span id="doc-count" class="count-badge">0</span></div>
                 <div id="document-list" class="document-list"></div>
-            </div>
-
-            <div class="sidebar-section">
-                <div class="status-card">
-                    <div class="status-dot"></div>
-                    <div style="font-size:11px;color:var(--gray-500)">System operational</div>
-                </div>
             </div>
         </aside>
 
         <main class="main-content">
-            <header class="hero-section">
-                <h1 class="hero-title">DocsInsight Engine</h1>
-                <div class="badges">
-                    <span class="ai-badge">Neural Search</span>
-                    <span class="ai-badge">RAG</span>
-                    <span class="ai-badge">Local LLM</span>
-                </div>
-            </header>
-
             <div class="chat-container" id="chat-container">
                 <div class="empty-state">
-                    <div class="empty-state-icon">
-                        <i class="fas fa-magnifying-glass"></i>
-                    </div>
-                    <h3>Ask anything about your documents</h3>
-                    <p style="color:var(--gray-500);margin-top:6px;font-size:13px">Upload a document and start querying to extract insights.</p>
+                    <div class="empty-icon"><i class="fas fa-message"></i></div>
+                    <h3>Start a conversation</h3>
+                    <p>Upload documents and ask questions to extract insights.</p>
                     <div class="suggestion-chips">
-                        <div class="suggestion-chip" data-query="Summarize the key points of the uploaded document">Summarize key points</div>
-                        <div class="suggestion-chip" data-query="What are the main topics discussed?">Main topics</div>
-                        <div class="suggestion-chip" data-query="Extract important data and statistics">Extract data</div>
+                        <button class="suggestion-chip" data-query="Summarize the key points of the uploaded document">Summarize key points</button>
+                        <button class="suggestion-chip" data-query="What are the main topics discussed?">Identify main topics</button>
+                        <button class="suggestion-chip" data-query="Extract important data and statistics">Extract statistics</button>
                     </div>
                 </div>
             </div>
-
             <div class="input-area">
                 <div class="input-wrapper">
-                    <textarea id="query-input" placeholder="Ask a question..." rows="1"></textarea>
+                    <textarea id="query-input" placeholder="Ask a question about your documents..." rows="1"></textarea>
                     <button id="send-btn"><i class="fas fa-arrow-up"></i></button>
                 </div>
-                <div class="input-footer">
-                    AI responses may be inaccurate. Verify important information.
-                </div>
+                <div class="input-footer">AI responses may be inaccurate. Verify important information.</div>
             </div>
         </main>
     </div>
-    <script src="script.js"></script>
-</body>
+</div>
 
+<script src="script.js"></script>
+</body>
 </html>
